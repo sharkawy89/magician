@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@layer theme, base, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  --color-main: #0090f0;
+  --color-paragraph: #7b7b7b;
+  --color-soft: #f3f3f3;
+  --color-heading: #253237;
+  --color-line: #d6d6d6d5;
+
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "DM Sans", sans-serif;
+}
+
+/* Base reset and element defaults (kept identical to the original stylesheet) */
+@layer base {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #fff;
+    font-family: var(--font-sans);
+    padding-top: 150px;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-heading);
+    font-family: var(--font-heading);
+  }
+
+  span {
+    color: var(--color-main);
+  }
+
+  p {
+    color: var(--color-paragraph);
+  }
+
+  input,
+  button,
+  select,
+  textarea {
+    outline: none;
+    border: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-heading);
+  }
+}
+
+/* Loading shimmer */
+@utility skeltion {
+  background-color: #e2e5e7;
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.5),
+    rgba(255, 255, 255, 0)
+  );
+  background-size: 40px 100%;
+  background-repeat: no-repeat;
+  background-position: left -40px top 0;
+  animation: shine 1s ease infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: right -40px top 0;
+  }
+}
