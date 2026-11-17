@@ -21,12 +21,16 @@ import {
   filterProducts,
   getActiveFilterCount,
   getBrandFacets,
+  getListingCacheKey,
   getPriceBounds,
   getRatingFacets,
   getSortParams,
   normalizeFilters,
+  readCachedFullSet,
   readListingParams,
   sortProducts,
+  stripInvalidListingParams,
+  writeCachedFullSet,
   writeListingParams,
 } from "../../utils/listing";
 
@@ -84,6 +88,7 @@ function ListingPage({ query = "", category = "" }) {
 
     const controller = new AbortController();
     let ignore = false;
+    const cacheKey = getListingCacheKey(query, category);
 
     setAllProducts([]);
     setAllLoading(true);
@@ -92,6 +97,14 @@ function ListingPage({ query = "", category = "" }) {
     setPageTotal(0);
     setPageLoading(true);
     setPageError("");
+
+    const cached = readCachedFullSet(cacheKey);
+
+    if (cached) {
+      setAllProducts(cached);
+      setAllLoading(false);
+      return undefined;
+    }
 
     const fetchAll = async () => {
       try {
@@ -106,7 +119,9 @@ function ListingPage({ query = "", category = "" }) {
         const data = await res.json();
 
         if (!ignore) {
-          setAllProducts(Array.isArray(data.products) ? data.products : []);
+          const products = Array.isArray(data.products) ? data.products : [];
+          writeCachedFullSet(cacheKey, products);
+          setAllProducts(products);
         }
       } catch (error) {
         if (!ignore && error.name !== "AbortError") {
@@ -139,6 +154,22 @@ function ListingPage({ query = "", category = "" }) {
   );
 
   const allLoaded = !allLoading && !allError;
+
+  // Drop syntactically invalid params (and unknown brands) once facets are
+  // known. Only the listing keys are touched; q / category / query and any
+  // unrelated params survive. replace keeps Back history clean.
+  useEffect(() => {
+    if (!allLoaded) return;
+
+    const cleaned = stripInvalidListingParams(
+      new URLSearchParams(paramsKey),
+      brandFacets.map((facet) => facet.name),
+    );
+
+    if (cleaned.toString() !== paramsKey) {
+      setSearchParams(cleaned, { replace: true });
+    }
+  }, [allLoaded, paramsKey, brandFacets, setSearchParams]);
 
   const rawParams = useMemo(
     () => readListingParams(new URLSearchParams(paramsKey)),

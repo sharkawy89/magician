@@ -12,6 +12,23 @@ export const RATING_THRESHOLDS = [4, 3, 2];
 const SORT_VALUES = new Set(LISTING_SORTS.map((sort) => sort.value));
 const VIEW_VALUES = new Set(["grid", "list"]);
 
+// Session-only cache for the full (limit=0) result set used for facets and
+// client-side filtering. Keyed by the query/category pair so page, sort and
+// view changes reuse it; nothing is persisted.
+const FULL_SET_CACHE = new Map();
+
+export function readCachedFullSet(key) {
+  return FULL_SET_CACHE.get(key) ?? null;
+}
+
+export function writeCachedFullSet(key, products) {
+  FULL_SET_CACHE.set(key, products);
+}
+
+export function getListingCacheKey(query, category) {
+  return `${query ?? ""}\u0000${category ?? ""}`;
+}
+
 const SORT_PARAMS = {
   newest: { sortBy: "id", order: "desc" },
   "price-asc": { sortBy: "price", order: "asc" },
@@ -150,6 +167,57 @@ export function readListingParams(searchParams) {
         ? Math.min(pageValue, 1000)
         : 1,
   };
+}
+
+/**
+ * Removes listing params that are syntactically invalid or reference a brand
+ * that does not exist in the current facet set. Valid params (and q / category
+ * / legacy query) are left untouched. Returned params can be compared by
+ * toString() to decide whether a replace navigation is needed.
+ */
+export function stripInvalidListingParams(searchParams, brandNames) {
+  const next = new URLSearchParams(searchParams);
+  const knownBrands = new Set(brandNames);
+
+  const dropIf = (key, isValid) => {
+    if (!next.has(key)) return;
+    if (!isValid(next.get(key) ?? "")) next.delete(key);
+  };
+
+  const isNonNegativeNumber = (raw) =>
+    raw.trim() !== "" &&
+    Number.isFinite(Number(raw)) &&
+    Number(raw) >= 0;
+
+  const isPositiveInteger = (raw) =>
+    /^\d+$/.test(raw.trim()) && Number(raw) >= 1;
+
+  dropIf("minPrice", isNonNegativeNumber);
+  dropIf("maxPrice", isNonNegativeNumber);
+  dropIf("rating", (raw) => RATING_THRESHOLDS.includes(Number(raw)));
+  dropIf("inStock", (raw) => raw === "1");
+  dropIf("sort", (raw) => SORT_VALUES.has(raw));
+  dropIf("view", (raw) => VIEW_VALUES.has(raw));
+  dropIf("page", isPositiveInteger);
+
+  if (next.has("brand")) {
+    const brands = [
+      ...new Set(
+        (next.get("brand") ?? "")
+          .split(",")
+          .map((brand) => brand.trim())
+          .filter((brand) => knownBrands.has(brand)),
+      ),
+    ];
+
+    if (brands.length === 0) {
+      next.delete("brand");
+    } else {
+      next.set("brand", brands.join(","));
+    }
+  }
+
+  return next;
 }
 
 /**
