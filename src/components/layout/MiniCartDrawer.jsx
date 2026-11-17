@@ -9,18 +9,11 @@ import Drawer from "../ui/Drawer";
 import EmptyState from "../ui/EmptyState";
 import Price from "../ui/Price";
 import QuantityStepper from "../ui/QuantityStepper";
+import FreeShippingProgress from "../cart/FreeShippingProgress";
 import {
-  freeShippingThreshold,
   miniCartCopy,
   miniCartEmpty,
 } from "../../mocks/storefrontMock";
-
-function formatMoney(value) {
-  return `$${Number(value).toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
-}
 
 function MiniCartDrawer() {
   const { open, closeMiniCart } = useContext(MiniCartContext);
@@ -41,12 +34,6 @@ function MiniCartDrawer() {
       total + (Number(item.price) || 0) * (Number(item.quantity) || 1),
     0,
   );
-
-  const remaining = Math.max(0, freeShippingThreshold - subtotal);
-  const progress =
-    freeShippingThreshold > 0
-      ? Math.min(100, Math.round((subtotal / freeShippingThreshold) * 100))
-      : 100;
 
   const hasItems = cartItems.length > 0;
 
@@ -143,29 +130,7 @@ function MiniCartDrawer() {
 
       {hasItems ? (
         <div className="w-full">
-          <div>
-            <p className="mb-1.5 text-xs font-medium text-ink">
-              {remaining > 0
-                ? miniCartCopy.freeShippingRemaining.replace(
-                    "{amount}",
-                    formatMoney(remaining),
-                  )
-                : miniCartCopy.freeShippingUnlocked}
-            </p>
-            <div
-              role="progressbar"
-              aria-label={miniCartCopy.freeShippingProgressLabel}
-              aria-valuemin={0}
-              aria-valuemax={freeShippingThreshold}
-              aria-valuenow={Math.min(subtotal, freeShippingThreshold)}
-              className="h-2 overflow-hidden rounded-pill bg-surface-subtle"
-            >
-              <div
-                className="h-full rounded-pill bg-brand transition-[width] duration-300 motion-reduce:transition-none"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-          </div>
+          <FreeShippingProgress subtotal={subtotal} />
 
           <div className="mt-4 flex items-center justify-between gap-3">
             <span className="text-sm font-medium text-ink">

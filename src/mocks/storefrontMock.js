@@ -114,6 +114,69 @@ export const accountLinks = [
 ];
 
 export const freeShippingThreshold = 100;
+export const flatShippingRate = 7.95;
+export const promoCode = "MAGIC10";
+export const promoDiscountPercent = 10;
+export const promoStorageKey = "magician:promo";
+
+export const cartContent = {
+  title: "Your cart",
+  itemsLabel: "Items",
+  unitPriceLabel: "Unit price",
+  lineTotalLabel: "Line total",
+  removeLabel: "Remove {title} from cart",
+  saveForLater: "Save for later",
+  savedForLater: "Saved for later",
+  moveToFavoritesLabel: "Move {title} to favorites",
+  lowStock: "Only {count} left",
+  outOfStock: "Out of stock — remove or save it for later.",
+  summaryTitle: "Order summary",
+  shippingLabel: "Estimated shipping",
+  freeShipping: "Free",
+  taxLabel: "Estimated tax",
+  taxValue: "Calculated at checkout",
+  totalLabel: "Estimated total",
+  taxNote: "Tax is calculated at checkout.",
+  promo: {
+    heading: "Have a promo code?",
+    label: "Promo code",
+    demoLabel: "Demo",
+    placeholder: "Enter demo code",
+    helper: "Demo code: {code}",
+    empty: "Enter a promo code.",
+    apply: "Apply",
+    applied: "{code} applied",
+    remove: "Remove promo code",
+    invalid: "That code isn't valid. Try {code}.",
+    success: "Promo code applied.",
+    removed: "Promo code removed.",
+  },
+  checkout: "Proceed to checkout",
+  checkoutShort: "Checkout",
+  continueShopping: "Continue shopping",
+  empty: {
+    title: "Your cart is empty",
+    description: "Add something you love and it will show up here.",
+    cta: "Continue shopping",
+  },
+  suggestions: {
+    title: "You may also like",
+    subtitle: "Popular picks to get you started.",
+    subtitleCategory: "More from {category}",
+  },
+  trust: [
+    {
+      id: "secure",
+      title: "Secure checkout",
+      description: "Encrypted payment flow. No card data is stored.",
+    },
+    {
+      id: "returns",
+      title: "30-day returns",
+      description: "Changed your mind? Send it back within 30 days.",
+    },
+  ],
+};
 
 export const miniCartEmpty = {
   title: "Your cart is empty",

@@ -26,16 +26,21 @@ export function RailSkeleton() {
   );
 }
 
-function ProductRail({ rail, excludeId = null }) {
+function ProductRail({ rail, excludeId = null, excludeIds = [] }) {
   const swiperRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const visibleProducts =
-    excludeId === null || excludeId === undefined
-      ? products
-      : products.filter((item) => String(item.id) !== String(excludeId));
+  const excluded = new Set(
+    [excludeId, ...excludeIds]
+      .filter((id) => id !== null && id !== undefined)
+      .map(String),
+  );
+
+  const visibleProducts = products.filter(
+    (item) => !excluded.has(String(item.id)),
+  );
 
   useEffect(() => {
     const controller = new AbortController();

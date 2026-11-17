@@ -118,7 +118,8 @@
 
     /* The product page raises the toast stack while its sticky buy bar is on
        screen so the bar never covers a favorite/review toast. */
-    body.product-sticky-bar-visible {
+    body.product-sticky-bar-visible,
+    body.cart-sticky-bar-visible {
       --toast-offset: calc(
         3.5rem + 4.25rem + env(safe-area-inset-bottom) + 0.75rem
       );
