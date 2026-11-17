@@ -1,28 +1,48 @@
-import React from "react";
-import Skeleton from "../../components/ui/Skeleton";
+import { Skeleton, SkeletonText } from "../../components/ui/Skeleton";
 
 function ProductDetailsLoading() {
   return (
-    <div role="status">
-      <span className="sr-only">Loading product details...</span>
+    <div
+      role="status"
+      className="mx-auto w-[90%] max-w-337.5 pt-5 sm:pt-7"
+    >
+      <span className="sr-only">Loading product details…</span>
 
-      <div className="py-12.5">
-        <div className="mx-auto flex w-[90%] max-w-337.5 flex-col items-center gap-10 md:flex-row md:items-center md:justify-between md:gap-0">
-          <Skeleton
-            rounded="rounded-lg"
-            className="h-72 w-full md:h-150 md:w-[40%]"
-          />
+      <Skeleton rounded="rounded-sm" className="h-4 w-56 max-w-full" />
 
-          <div className="w-full space-y-5 md:w-[58%] md:pt-25">
-            <Skeleton className="h-9 w-3/4" />
-            <Skeleton className="h-5 w-1/3" />
-            <Skeleton className="h-8 w-40" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-            <Skeleton rounded="rounded-pill" className="h-12 w-48" />
+      <div className="mt-5 grid gap-8 lg:grid-cols-2 lg:gap-12">
+        <div>
+          <Skeleton rounded="rounded-xl" className="aspect-square w-full" />
+          <div className="mt-4 flex gap-2">
+            {Array.from({ length: 4 }, (_, index) => (
+              <Skeleton
+                key={index}
+                rounded="rounded-lg"
+                className="h-20 w-20 shrink-0"
+              />
+            ))}
           </div>
         </div>
+
+        <div className="space-y-5">
+          <Skeleton rounded="rounded-sm" className="h-4 w-32" />
+          <Skeleton rounded="rounded-sm" className="h-9 w-4/5" />
+          <Skeleton rounded="rounded-sm" className="h-5 w-48" />
+          <Skeleton rounded="rounded-sm" className="h-8 w-40" />
+          <Skeleton rounded="rounded-pill" className="h-6 w-32" />
+          <Skeleton rounded="rounded-lg" className="h-20 w-full" />
+          <div className="flex gap-3">
+            <Skeleton rounded="rounded-lg" className="h-11 w-36" />
+            <Skeleton rounded="rounded-pill" className="h-12 w-40" />
+            <Skeleton rounded="rounded-pill" className="h-12 w-12" />
+          </div>
+          <SkeletonText lines={3} />
+        </div>
+      </div>
+
+      <div className="mt-10 sm:mt-14">
+        <Skeleton rounded="rounded-sm" className="h-10 w-full" />
+        <SkeletonText lines={4} className="mt-6 max-w-3xl" />
       </div>
     </div>
   );

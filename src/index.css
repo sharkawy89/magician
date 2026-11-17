@@ -25,6 +25,8 @@
   --color-rating: #f5b301;
   --color-skeleton: #e2e5e7;
   --color-skeleton-shine: rgb(255 255 255 / 0.55);
+  --color-white70: #bababa;
+  --color-white80: #d1d1d1;
 
   /* Typography */
   --font-sans:
@@ -112,6 +114,14 @@
     :root {
       /* Keep toasts clear of the 56px mobile tab bar + safe area. */
       --toast-offset: calc(3.5rem + env(safe-area-inset-bottom) + 0.75rem);
+    }
+
+    /* The product page raises the toast stack while its sticky buy bar is on
+       screen so the bar never covers a favorite/review toast. */
+    body.product-sticky-bar-visible {
+      --toast-offset: calc(
+        3.5rem + 4.25rem + env(safe-area-inset-bottom) + 0.75rem
+      );
     }
   }
 

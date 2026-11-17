@@ -9,7 +9,7 @@ import { Skeleton, SkeletonText } from "../ui/Skeleton";
 const RAIL_BUTTON =
   "hidden h-10 w-10 items-center justify-center rounded-pill border border-border-strong bg-surface text-ink transition-colors duration-200 hover:border-ink hover:bg-surface-subtle motion-reduce:transition-none sm:inline-flex [@media(hover:none)]:hidden";
 
-function RailSkeleton() {
+export function RailSkeleton() {
   return (
     <div aria-hidden="true" className="flex gap-4 overflow-hidden">
       {Array.from({ length: 5 }, (_, index) => (
@@ -26,11 +26,16 @@ function RailSkeleton() {
   );
 }
 
-function ProductRail({ rail }) {
+function ProductRail({ rail, excludeId = null }) {
   const swiperRef = useRef(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+
+  const visibleProducts =
+    excludeId === null || excludeId === undefined
+      ? products
+      : products.filter((item) => String(item.id) !== String(excludeId));
 
   useEffect(() => {
     const controller = new AbortController();
@@ -110,6 +115,10 @@ function ProductRail({ rail }) {
           <RailSkeleton />
         ) : error ? (
           <ErrorState title="Products unavailable" description={error} />
+        ) : visibleProducts.length === 0 ? (
+          <p className="text-sm text-ink-secondary">
+            No related products found.
+          </p>
         ) : (
           <Swiper
             id={`${rail.id}-rail`}
@@ -121,7 +130,7 @@ function ProductRail({ rail }) {
             rewind
             watchOverflow
           >
-            {products.map((item) => (
+            {visibleProducts.map((item) => (
               <SwiperSlide key={item.id} className="!w-62.5">
                 <Product item={item} />
               </SwiperSlide>
