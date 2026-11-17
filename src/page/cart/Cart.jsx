@@ -1,8 +1,15 @@
 import React, { useContext } from "react";
-import { CartContext } from "../../components/context/cartContextValue";
+import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
+import { TiShoppingCart } from "react-icons/ti";
+import { CartContext } from "../../components/context/cartContextValue";
 import PageTransition from "../../components/PageTransition";
-import toast from "react-hot-toast";
+import { notify } from "../../components/ui/toast";
+import Button from "../../components/ui/Button";
+import Card from "../../components/ui/Card";
+import EmptyState from "../../components/ui/EmptyState";
+import Price from "../../components/ui/Price";
+import QuantityStepper from "../../components/ui/QuantityStepper";
 
 function Cart() {
   const {
@@ -20,109 +27,115 @@ function Cart() {
 
   const handlePlaceOrder = () => {
     if (cartItems.length === 0) {
-      toast.error("Your cart is empty");
+      notify.error("Your cart is empty");
       return;
     }
 
     clearCart();
-    toast.success("Order placed successfully!");
+    notify.success("Order placed successfully!");
   };
 
   return (
     <PageTransition>
-      <div className="my-[50px]">
-        <div className="mx-auto w-[45%] rounded-[5px] border border-line px-[20px] shadow-[0px_8px_10px_#c0bfbf44]">
-          <h1 className="mb-[20px] border-b border-line py-[20px] text-[2em] font-bold text-main">
+      <div className="my-12.5">
+        <Card className="mx-auto w-[92%] max-w-150 px-5">
+          <h1 className="mb-5 border-b border-border py-5 text-[2em] font-bold text-ink">
             Order Summary
           </h1>
 
-          <div className="h-[350px] overflow-y-auto">
+          <div className="h-87.5 overflow-y-auto">
             {cartItems.length === 0 ? (
-              <p>Your Cart is empty.</p>
+              <div className="flex h-full items-center justify-center">
+                <EmptyState
+                  icon={<TiShoppingCart />}
+                  title="Your cart is empty"
+                  description="Add a product to your cart and it will show up here."
+                  action={
+                    <Button as={Link} to="/" variant="primary">
+                      Browse products
+                    </Button>
+                  }
+                />
+              </div>
             ) : (
               cartItems.map((item) => {
                 const productImage = item.images?.[0] || item.thumbnail;
 
                 return (
                   <div
-                    className="flex h-[125px] items-center justify-between gap-[20px] border-b border-line pr-[20px] last:border-b-0"
+                    className="flex h-31.25 items-center justify-between gap-5 border-b border-border pe-5 last:border-b-0"
                     key={item.id}
                   >
-                    <div className="flex items-center gap-[20px]">
-                      <div className="flex w-[100px] items-center justify-center">
+                    <div className="flex items-center gap-5">
+                      <div className="flex w-25 items-center justify-center">
                         {productImage ? (
                           <img
                             src={productImage}
                             alt={item.title}
-                            className="h-[80px] w-auto"
+                            className="h-20 w-auto"
                           />
                         ) : (
-                          <span className="text-[12px] text-paragraph">
+                          <span className="text-[12px] text-ink-secondary">
                             No image
                           </span>
                         )}
                       </div>
 
                       <div>
-                        <h4 className="mb-[10px] line-clamp-2 text-[16px] font-medium">
+                        <h4 className="mb-2.5 line-clamp-2 text-[16px] font-medium">
                           {item.title}
                         </h4>
-                        <p>${item.price}</p>
+                        <Price price={item.price} size="sm" />
 
-                        <div className="mt-[5px] flex items-center gap-[5px]">
-                          <button
-                            type="button"
-                            className="flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-[2px] border border-line text-[20px]"
-                            onClick={() => decreaseQuantity(item.id)}
-                            aria-label={`Decrease quantity of ${item.title}`}
-                          >
-                            -
-                          </button>
-                          <span className="flex min-w-[40px] items-center justify-center border border-line bg-soft text-[18px]">
-                            {item.quantity}
-                          </span>
-                          <button
-                            type="button"
-                            className="flex h-[27px] w-[27px] cursor-pointer items-center justify-center rounded-[2px] border border-line text-[20px]"
-                            onClick={() => increaseQuantity(item.id)}
-                            aria-label={`Increase quantity of ${item.title}`}
-                          >
-                            +
-                          </button>
-                        </div>
+                        <QuantityStepper
+                          className="mt-1.25"
+                          value={item.quantity}
+                          min={1}
+                          size="sm"
+                          label={item.title}
+                          onDecrease={() => decreaseQuantity(item.id)}
+                          onIncrease={() => increaseQuantity(item.id)}
+                        />
                       </div>
                     </div>
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      size="md"
+                      iconOnly
                       onClick={() => removeFromCart(item.id)}
-                      className="group border-0 bg-transparent outline-none"
                       aria-label={`Remove ${item.title} from cart`}
                     >
-                      <FaTrashAlt className="cursor-pointer fill-[#e51a1a] text-[25px] transition-all duration-300 ease-[ease] group-hover:scale-[1.2]" />
-                    </button>
+                      <FaTrashAlt
+                        aria-hidden="true"
+                        className="text-[22px] text-danger"
+                      />
+                    </Button>
                   </div>
                 );
               })
             )}
           </div>
 
-          <div className="border-t border-line pt-[25px]">
-            <div className="mb-[20px] flex items-center justify-between">
-              <p className="text-[20px] capitalize text-heading">Total:</p>
-              <span className="text-[20px] font-bold">${total.toFixed(2)}</span>
+          <div className="border-t border-border pt-6.25">
+            <div className="mb-5 flex items-center justify-between gap-4">
+              <p className="text-[20px] capitalize text-ink">Total:</p>
+              <Price price={total.toFixed(2)} size="md" />
             </div>
 
-            <div className="border-t border-line py-[30px]">
-              <button
+            <div className="border-t border-border py-7.5">
+              <Button
                 type="button"
                 onClick={handlePlaceOrder}
-                className="w-full cursor-pointer rounded-[2px] border-2 border-main bg-main py-[15px] text-[20px] font-bold text-white outline-none transition-all duration-300 ease-[ease-in-out] hover:bg-transparent hover:text-main"
+                variant="primary"
+                size="lg"
+                fullWidth
               >
                 Place Order
-              </button>
+              </Button>
             </div>
           </div>
-        </div>
+        </Card>
       </div>
     </PageTransition>
   );

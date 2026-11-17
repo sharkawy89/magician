@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import { notify } from "../components/ui/toast";
 
 export async function shareProduct(product) {
   if (!product) return;
@@ -17,15 +17,15 @@ export async function shareProduct(product) {
 
     if (navigator.clipboard?.writeText) {
       await navigator.clipboard.writeText(url);
-      toast.success("Product link copied to clipboard");
+      notify.success("Product link copied to clipboard");
       return;
     }
 
-    toast.error("Sharing is not supported in this browser");
+    notify.error("Sharing is not supported in this browser");
   } catch (error) {
     if (error?.name === "AbortError") return;
 
     console.error("Could not share product", error);
-    toast.error("Could not share this product");
+    notify.error("Could not share this product");
   }
 }

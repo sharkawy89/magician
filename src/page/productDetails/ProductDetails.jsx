@@ -6,6 +6,8 @@ import SlideProductLoading from "../../components/slideProducts/SlideProductLoad
 import ProductImages from "./ProductImages";
 import ProductInfo from "./ProductInfo";
 import PageTransition from "../../components/PageTransition";
+import Button from "../../components/ui/Button";
+import ErrorState from "../../components/ui/ErrorState";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -131,18 +133,17 @@ function ProductDetails() {
           <ProductDetailsLoading />
         ) : error || !product ? (
           <div className="mx-auto w-[90%] max-w-337.5 py-12.5">
-            <h2 className="mb-2.5 text-[30px] font-bold text-main">
-              Product Unavailable
-            </h2>
-            <p className="mb-5">
-              {error || "The product you are looking for does not exist."}
-            </p>
-            <Link
-              to="/"
-              className="flex w-max items-center gap-2.5 rounded-[30px] bg-main px-4.5 py-2.5 capitalize text-white transition-all duration-300 ease-[ease] hover:scale-110"
-            >
-              Back to Home
-            </Link>
+            <ErrorState
+              title="Product unavailable"
+              description={
+                error || "The product you are looking for does not exist."
+              }
+              action={
+                <Button as={Link} to="/" variant="primary">
+                  Back to Home
+                </Button>
+              }
+            />
           </div>
         ) : (
           <>

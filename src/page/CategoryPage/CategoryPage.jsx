@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import { IoPricetagsOutline } from "react-icons/io5";
 import Product from "../../components/slideProducts/Product";
 import SlideProductLoading from "../../components/slideProducts/SlideProductLoading";
 import PageTransition from "../../components/PageTransition";
+import Button from "../../components/ui/Button";
+import EmptyState from "../../components/ui/EmptyState";
+import ErrorState from "../../components/ui/ErrorState";
 
 function CategoryPage() {
   const { category } = useParams();
@@ -71,8 +75,8 @@ function CategoryPage() {
           <SlideProductLoading key={category} />
         ) : (
           <div className="mx-auto w-[90%] max-w-337.5">
-            <div className="relative mb-5 border-b border-line pt-3.75 pr-5 pb-5 after:absolute after:-bottom-px after:h-0.5 after:w-25 after:bg-main after:content-['']">
-              <h2 className="mb-2.5 text-[30px] font-bold text-main capitalize">
+            <div className="relative mb-5 border-b border-border pt-3.75 pe-5 pb-5 after:absolute after:-bottom-px after:h-0.5 after:w-25 after:bg-brand after:content-['']">
+              <h2 className="mb-2.5 text-[30px] font-bold text-ink capitalize">
                 {title} : {total}
               </h2>
               <p>
@@ -82,19 +86,26 @@ function CategoryPage() {
             </div>
 
             {error ? (
-              <div className="py-12.5">
-                <p className="mb-5">{error}</p>
-                <Link
-                  to="/"
-                  className="flex w-max items-center gap-[10px] rounded-[30px] bg-main px-[18px] py-[10px] capitalize text-white transition-all duration-300 ease-[ease] hover:scale-110"
-                >
-                  Back to Home
-                </Link>
-              </div>
+              <ErrorState
+                title="Category unavailable"
+                description={error}
+                action={
+                  <Button as={Link} to="/" variant="primary">
+                    Back to Home
+                  </Button>
+                }
+              />
             ) : categoryProducts.length === 0 ? (
-              <div className="py-12.5">
-                <p>No products found in this category.</p>
-              </div>
+              <EmptyState
+                icon={<IoPricetagsOutline />}
+                title="No products found"
+                description="This category does not have any products right now."
+                action={
+                  <Button as={Link} to="/" variant="primary">
+                    Browse products
+                  </Button>
+                }
+              />
             ) : (
               <div className="flex flex-wrap items-center justify-between gap-5 py-12.5">
                 {categoryProducts.map((item) => (

@@ -4,6 +4,7 @@ import HeroSlider from "../../components/HeroSlider";
 import SlideProduct from "../../components/slideProducts/SlideProduct";
 import SlideProductLoading from "../../components/slideProducts/SlideProductLoading";
 import PageTransition from "../../components/PageTransition";
+import ErrorState from "../../components/ui/ErrorState";
 
 const categories = [
   "smartphones",
@@ -99,7 +100,10 @@ function Home() {
           ))
         ) : error ? (
           <div className="mx-auto w-[90%] max-w-337.5 py-12.5">
-            <p>{error}</p>
+            <ErrorState
+              title="Products unavailable"
+              description={error}
+            />
           </div>
         ) : (
           availableCategories.map((category) => (

@@ -1,21 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap");
 
 @layer theme, base, utilities;
 @import "tailwindcss/theme.css" layer(theme);
 @import "tailwindcss/utilities.css" layer(utilities);
 
 @theme {
-  --color-main: #0090f0;
-  --color-paragraph: #7b7b7b;
-  --color-soft: #f3f3f3;
-  --color-heading: #253237;
-  --color-line: #d6d6d6d5;
+  /* Brand palette */
+  --color-brand: #feee00;
+  --color-brand-hover: #f5e200;
+  --color-brand-soft: #fff8b8;
+  --color-ink: #1a1a1a;
+  --color-ink-secondary: #5b5f6b;
+  --color-muted: #6b7280;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f6f7f9;
+  --color-border: #e6e8ec;
+  --color-border-strong: #8a8f9c;
+  --color-info: #2b4eff;
+  --color-info-strong: #1f3fd6;
+  --color-success: #067647;
+  --color-danger: #c62828;
+  --color-warning: #ff8a00;
+  --color-warning-strong: #b54708;
+  --color-rating: #f5b301;
+  --color-skeleton: #e2e5e7;
+  --color-skeleton-shine: rgb(255 255 255 / 0.55);
 
-  --font-sans: "Inter", sans-serif;
-  --font-heading: "DM Sans", sans-serif;
+  /* Typography */
+  --font-sans:
+    "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --font-heading:
+    "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
+  --text-price: 1.375rem;
+  --text-price--line-height: 1.25;
+  --text-h1: 3rem;
+  --text-h1--line-height: 1.1;
+  --text-h2: 2.25rem;
+  --text-h2--line-height: 1.15;
+  --text-h3: 1.75rem;
+  --text-h3--line-height: 1.2;
+  --text-h4: 1.375rem;
+  --text-h4--line-height: 1.25;
+  --text-h5: 1.125rem;
+  --text-h5--line-height: 1.3;
+  --text-h6: 1rem;
+  --text-h6--line-height: 1.4;
+
+  /* Shape */
+  --radius-xs: 0.25rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-pill: 9999px;
+
+  /* Depth */
+  --shadow-card: 0 8px 24px rgb(26 26 26 / 0.06);
+  --shadow-card-hover: 0 14px 32px rgb(26 26 26 / 0.1);
+  --shadow-panel: 0 8px 24px rgb(26 26 26 / 0.08);
+  --shadow-dropdown: 0 12px 28px rgb(26 26 26 / 0.1);
+  --shadow-header: 0 1px 0 var(--color-border);
+  --shadow-nav: 0 6px 16px rgb(26 26 26 / 0.06);
+  --shadow-tabbar: 0 -1px 0 var(--color-border);
+
+  /* Layout */
+  --spacing: 0.25rem;
+  --header-height: 7.25rem;
+
+  /* Breakpoints */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  /* Z-index layers */
+  --z-dropdown: 40;
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+  --z-toast: 400;
 }
 
-/* Base reset and element defaults (kept identical to the original stylesheet) */
+/* Base reset and element defaults */
 @layer base {
   * {
     padding: 0;
@@ -23,14 +97,40 @@
     box-sizing: border-box;
   }
 
+  :root {
+    --toast-offset: 1rem;
+  }
+
+  @media (min-width: 64rem) {
+    :root {
+      /* Sticky yellow header only: one row with a 48px search field. */
+      --header-height: 4.5rem;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    :root {
+      /* Keep toasts clear of the 56px mobile tab bar + safe area. */
+      --toast-offset: calc(3.5rem + env(safe-area-inset-bottom) + 0.75rem);
+    }
+  }
+
+  html {
+    scroll-padding-top: var(--header-height);
+  }
+
   body {
-    background: #fff;
+    min-height: 100vh;
+    background: var(--color-surface);
+    color: var(--color-ink);
     font-family: var(--font-sans);
-    padding-top: 150px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
   img {
-    width: 100%;
+    display: block;
+    max-width: 100%;
   }
 
   h1,
@@ -39,45 +139,114 @@
   h4,
   h5,
   h6 {
-    color: var(--color-heading);
+    color: var(--color-ink);
     font-family: var(--font-heading);
   }
 
-  span {
-    color: var(--color-main);
-  }
-
   p {
-    color: var(--color-paragraph);
+    color: var(--color-ink-secondary);
   }
 
   input,
   button,
   select,
   textarea {
-    outline: none;
     border: none;
+    outline: none;
+    font: inherit;
+    color: inherit;
+  }
+
+  /* Preflight is not imported, so clear the UA button fill explicitly. */
+  button {
+    background-color: transparent;
   }
 
   a {
+    color: var(--color-ink);
     text-decoration: none;
-    color: var(--color-heading);
+  }
+
+  /*
+   * Two-part focus indicator: the ink outline is the required dark ring,
+   * while the white shadow fills the offset gap so the ring stays visible
+   * on dark surfaces as well as on white and yellow.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-surface);
+  }
+
+  /*
+   * Dark surfaces (announcement bar, footer) swap to the yellow ring with an
+   * ink gap so the indicator stays visible on ink.
+   */
+  .on-ink :focus-visible {
+    outline-color: var(--color-brand);
+    box-shadow: 0 0 0 2px var(--color-ink);
+  }
+
+  /* The skip link targets <main>; focusing the region should not draw a frame. */
+  #main:focus {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+/* Space for the fixed mobile tab bar plus the device safe area. */
+@layer utilities {
+  .tabbar-clearance {
+    padding-bottom: calc(3.5rem + env(safe-area-inset-bottom));
+  }
+
+  @media (min-width: 48rem) {
+    .tabbar-clearance {
+      padding-bottom: 0;
+    }
   }
 }
 
 /* Loading shimmer */
-@utility skeltion {
-  background-color: #e2e5e7;
+@utility skeleton {
+  background-color: var(--color-skeleton);
   background-image: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0),
-    rgba(255, 255, 255, 0.5),
-    rgba(255, 255, 255, 0)
+    transparent,
+    var(--color-skeleton-shine),
+    transparent
   );
   background-size: 40px 100%;
   background-repeat: no-repeat;
   background-position: left -40px top 0;
   animation: shine 1s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
+}
+
+/* Semantic stacking layers */
+@utility z-dropdown {
+  z-index: var(--z-dropdown);
+}
+
+@utility z-header {
+  z-index: var(--z-header);
+}
+
+@utility z-overlay {
+  z-index: var(--z-overlay);
+}
+
+@utility z-modal {
+  z-index: var(--z-modal);
+}
+
+@utility z-toast {
+  z-index: var(--z-toast);
 }
 
 @keyframes shine {
