@@ -13,13 +13,13 @@
 export const announcements = [
   {
     id: "free-shipping",
-    text: "Free shipping on orders over $100.",
+    text: "Free shipping over $100.",
     link: { label: "Shop now", to: "/search?q=home" },
   },
   {
     id: "weekly-offer",
-    text: "This week only: up to 30% off selected home picks.",
-    link: { label: "See the offer", to: "/category/home-decoration" },
+    text: "Up to 30% off home picks.",
+    link: { label: "See offer", to: "/category/home-decoration" },
   },
   {
     id: "returns",
@@ -201,3 +201,138 @@ export const footerContent = {
   ],
   copyright: "MAGICIAN Online Store. All rights reserved.",
 };
+
+/**
+ * Home page placeholder content. Everything visual on the home page is driven
+ * from here so merchandising can be swapped without touching layout code.
+ */
+export const homeHeroSlides = [
+  {
+    id: "console",
+    eyebrow: "Fresh drop",
+    title: "Play more. Pay less.",
+    description:
+      "Controllers, consoles and the accessories that make game night better.",
+    ctaLabel: "Shop tech",
+    ctaTo: "/category/smartphones",
+    image: "console",
+  },
+  {
+    id: "purifier",
+    eyebrow: "Breathe easy",
+    title: "A cleaner kind of calm.",
+    description:
+      "Quiet home tech that works in the background so you don't have to.",
+    ctaLabel: "Shop home",
+    ctaTo: "/category/home-decoration",
+    image: "purifier",
+  },
+  {
+    id: "audio",
+    eyebrow: "Sound on",
+    title: "Small player. Big soundtrack.",
+    description:
+      "Pocket-sized audio and everyday carry that goes the distance.",
+    ctaLabel: "Shop audio",
+    ctaTo: "/category/mobile-accessories",
+    image: "audio",
+  },
+];
+
+export const homeCategoryTiles = [
+  { label: "Beauty", slug: "beauty", icon: "beauty" },
+  { label: "Smartphones", slug: "smartphones", icon: "phone" },
+  { label: "Furniture", slug: "furniture", icon: "chair" },
+  { label: "Home decor", slug: "home-decoration", icon: "home" },
+  { label: "Groceries", slug: "groceries", icon: "basket" },
+  { label: "Sports", slug: "sports-accessories", icon: "sports" },
+];
+
+export const homeRails = {
+  newArrivals: {
+    id: "new-arrivals",
+    title: "New arrivals",
+    subtitle: "The latest additions to the shelves, straight from the warehouse.",
+    endpoint:
+      "https://dummyjson.com/products?limit=10&skip=0&sortBy=id&order=desc",
+  },
+  bestSellers: {
+    id: "best-sellers",
+    title: "Best sellers",
+    subtitle: "Shopper favorites with the sharpest prices this week.",
+    endpoint:
+      "https://dummyjson.com/products?limit=10&skip=0&sortBy=discountPercentage&order=desc",
+  },
+  topRated: {
+    id: "top-rated",
+    title: "Top rated",
+    subtitle: "The products customers keep coming back to review.",
+    endpoint:
+      "https://dummyjson.com/products?limit=10&skip=0&sortBy=rating&order=desc",
+  },
+};
+
+export const homeDeal = {
+  eyebrow: "Deal of the week",
+  title: "Up to 30% off home & tech",
+  description:
+    "A rotating edit of markdowns across furniture, decor and the tech you use every day.",
+  codeLabel: "Use code",
+  code: "MAGIC30",
+  ctaLabel: "Shop the deals",
+  ctaTo: "/category/furniture",
+  endsLabel: "Ends Sunday at 11:59 PM",
+};
+
+export const homePromos = [
+  {
+    id: "home-refresh",
+    eyebrow: "Home refresh",
+    title: "Softer light, sharper prices.",
+    description:
+      "Furniture, decor and kitchen picks for the rooms you actually live in.",
+    ctaLabel: "Shop home",
+    ctaTo: "/category/home-decoration",
+    icon: "home",
+    tone: "brand",
+  },
+  {
+    id: "tech-upgrade",
+    eyebrow: "Tech upgrade",
+    title: "The everyday carry, upgraded.",
+    description:
+      "Phones, audio and accessories that make the daily commute easier.",
+    ctaLabel: "Shop tech",
+    ctaTo: "/category/smartphones",
+    icon: "phone",
+    tone: "ink",
+  },
+];
+
+export const homeTrustItems = [
+  {
+    id: "shipping",
+    title: "Free shipping over $100",
+    description: "On every order, no membership needed.",
+    icon: "truck",
+  },
+  {
+    id: "returns",
+    title: "30-day easy returns",
+    description: "Changed your mind? Send it back, no drama.",
+    icon: "returns",
+  },
+  {
+    id: "secure",
+    title: "Secure checkout",
+    description: "Encrypted payment flow, no card data stored.",
+    icon: "shield",
+  },
+  {
+    id: "support",
+    title: "Real people, real help",
+    description: "Questions answered by the team, not a bot.",
+    icon: "support",
+  },
+];
+

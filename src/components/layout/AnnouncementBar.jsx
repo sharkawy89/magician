@@ -61,7 +61,7 @@ function AnnouncementBar() {
         }
       }}
     >
-      <div className="relative mx-auto flex min-h-10 w-[90%] max-w-337.5 items-center justify-center px-10">
+      <div className="relative mx-auto flex min-h-10 w-[90%] max-w-337.5 items-center justify-center ps-2 pe-12 sm:px-10">
         <p
           className="py-1 text-center text-xs leading-5 sm:text-sm"
           aria-live={paused ? "polite" : "off"}

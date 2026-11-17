@@ -17,19 +17,23 @@ function SearchResults() {
   // links keep working.
   const query = (params.get("q") || params.get("query") || "").trim();
   const category = (params.get("category") || "").trim();
+  const hasCriteria = Boolean(query || category);
 
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(Boolean(query));
+  const [loading, setLoading] = useState(hasCriteria);
   const [error, setError] = useState("");
 
-  // The search endpoint is not category-scoped, so filter the already-fetched
-  // results by the product's category slug.
-  const visibleResults = category
-    ? results.filter((item) => item.category === category)
-    : results;
+  // The search endpoint is not category-scoped, so when both a query and a
+  // category are present, filter the fetched search results by category slug.
+  // With only a category, the category endpoint below already returns the
+  // whole category, so no extra filtering is needed.
+  const visibleResults =
+    query && category
+      ? results.filter((item) => item.category === category)
+      : results;
 
   useEffect(() => {
-    if (!query) {
+    if (!query && !category) {
       setResults([]);
       setError("");
       setLoading(false);
@@ -45,10 +49,15 @@ function SearchResults() {
 
     const fetchResults = async () => {
       try {
-        const res = await fetch(
-          `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`,
-          { signal: controller.signal },
-        );
+        // DummyJSON has no category-scoped search endpoint, so:
+        // - query only: normal search;
+        // - query + category: search, then filtered client-side above;
+        // - category only: the category endpoint, which returns its products.
+        const endpoint = query
+          ? `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`
+          : `https://dummyjson.com/products/category/${encodeURIComponent(category)}`;
+
+        const res = await fetch(endpoint, { signal: controller.signal });
 
         if (!res.ok) {
           throw new Error(`Search failed (${res.status})`);
@@ -77,21 +86,25 @@ function SearchResults() {
       ignore = true;
       controller.abort();
     };
-  }, [query]);
+  }, [query, category]);
 
   return (
     <PageTransition key={location.pathname + location.search}>
       <div>
         {loading ? (
-          <SlideProductLoading key={query} />
+          <SlideProductLoading key={`${query}:${category}`} />
         ) : (
           <div className="mx-auto w-[90%] max-w-337.5">
             <div className="relative mb-5 border-b border-border pt-3.75 pe-5 pb-5 after:absolute after:-bottom-px after:h-0.5 after:w-25 after:bg-brand after:content-['']">
               <h2 className="mb-2.5 text-[30px] font-bold text-ink capitalize">
-                {query ? `Results for : ${query}` : "Search Products"}
+                {query
+                  ? `Results for : ${query}`
+                  : category
+                    ? formatCategoryName(category)
+                    : "Search Products"}
               </h2>
 
-              {category ? (
+              {query && category ? (
                 <p className="text-sm text-ink-secondary">
                   Filtered to{" "}
                   <span className="font-semibold text-ink">
@@ -103,6 +116,20 @@ function SearchResults() {
                     className="font-semibold text-info underline underline-offset-2"
                   >
                     Clear filter
+                  </Link>
+                </p>
+              ) : category ? (
+                <p className="text-sm text-ink-secondary">
+                  Showing all products in{" "}
+                  <span className="font-semibold text-ink">
+                    {formatCategoryName(category)}
+                  </span>
+                  .{" "}
+                  <Link
+                    to="/search"
+                    className="font-semibold text-info underline underline-offset-2"
+                  >
+                    Clear category
                   </Link>
                 </p>
               ) : null}
@@ -118,7 +145,7 @@ function SearchResults() {
                   </Button>
                 }
               />
-            ) : !query ? (
+            ) : !hasCriteria ? (
               <EmptyState
                 icon={<FaSearch />}
                 title="Search products"
@@ -127,22 +154,30 @@ function SearchResults() {
             ) : visibleResults.length === 0 ? (
               <EmptyState
                 icon={<FaSearch />}
-                title="No results found"
+                title={
+                  query && category
+                    ? `No results for "${query}" in ${formatCategoryName(category)}`
+                    : category
+                      ? `No products in ${formatCategoryName(category)}`
+                      : `No results for "${query}"`
+                }
                 description={
-                  category
-                    ? `We couldn't find anything for "${query}" in ${formatCategoryName(
-                        category,
-                      )}.`
-                    : `We couldn't find anything for "${query}". Try a different term.`
+                  query && category
+                    ? "Try a different search term, or search across every category."
+                    : category
+                      ? "This category has no products right now."
+                      : "Try a different term or browse the full catalog."
                 }
                 action={
                   category ? (
                     <Button
                       as={Link}
-                      to={`/search?q=${encodeURIComponent(query)}`}
+                      to={
+                        query ? `/search?q=${encodeURIComponent(query)}` : "/search"
+                      }
                       variant="primary"
                     >
-                      Search all categories
+                      {query ? "Search all categories" : "Browse all products"}
                     </Button>
                   ) : (
                     <Button as={Link} to="/" variant="primary">

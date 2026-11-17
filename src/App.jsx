@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./page/home/Home";
 import ProductDetails from "./page/productDetails/ProductDetails";
 import Cart from "./page/cart/Cart";
+import Checkout from "./page/checkout/Checkout";
 import { Toaster } from "react-hot-toast";
 import { AnimatePresence } from "framer-motion";
 import CategoryPage from "./page/CategoryPage/CategoryPage";
@@ -29,6 +30,7 @@ function App() {
           <Routes location={location} key={location.key}>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
             <Route path="/search" element={<SearchResults />} />
             <Route path="/favorites" element={<Favorites />} />
             <Route path="/products/:id" element={<ProductDetails />} />

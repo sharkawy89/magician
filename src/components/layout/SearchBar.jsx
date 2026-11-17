@@ -177,15 +177,23 @@ function SearchBar({ variant = "desktop", focusSignal = 0 }) {
 
   const runSearch = (value) => {
     const nextTerm = String(value ?? "").trim();
-    if (!nextTerm) return;
+    const selectedCategory = compact ? "" : category;
 
-    setRecent(addRecentSearch(nextTerm));
-    setQuery(nextTerm);
+    // A category on its own is a valid browse action, so allow submitting the
+    // form with only the category selected.
+    if (!nextTerm && !selectedCategory) return;
+
+    if (nextTerm) {
+      setRecent(addRecentSearch(nextTerm));
+      setQuery(nextTerm);
+    }
+
     setSuggestions([]);
     closePanel();
 
-    const params = new URLSearchParams({ q: nextTerm });
-    if (!compact && category) params.set("category", category);
+    const params = new URLSearchParams();
+    if (nextTerm) params.set("q", nextTerm);
+    if (selectedCategory) params.set("category", selectedCategory);
 
     navigate(`/search?${params.toString()}`);
   };

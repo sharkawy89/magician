@@ -188,10 +188,9 @@ function MiniCartDrawer() {
               {miniCartCopy.viewCart}
             </Button>
 
-            {/* TODO: point this at /checkout once a checkout route exists. */}
             <Button
               as={Link}
-              to="/cart"
+              to="/checkout"
               variant="secondary"
               fullWidth
               onClick={closeMiniCart}

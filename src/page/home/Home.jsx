@@ -1,119 +1,26 @@
-import React, { useEffect, useState } from "react";
-import HeroSlider from "../../components/HeroSlider";
-
-import SlideProduct from "../../components/slideProducts/SlideProduct";
-import SlideProductLoading from "../../components/slideProducts/SlideProductLoading";
 import PageTransition from "../../components/PageTransition";
-import ErrorState from "../../components/ui/ErrorState";
-
-const categories = [
-  "smartphones",
-  "mobile-accessories",
-  "laptops",
-  "tablets",
-  "sunglasses",
-  "sports-accessories",
-];
+import CategoryShortcuts from "../../components/home/CategoryShortcuts";
+import DealStrip from "../../components/home/DealStrip";
+import HomeHero from "../../components/home/HomeHero";
+import ProductRail from "../../components/home/ProductRail";
+import PromoBanners from "../../components/home/PromoBanners";
+import TrustStrip from "../../components/home/TrustStrip";
+import { homeRails } from "../../mocks/storefrontMock";
 
 function Home() {
-  const [products, setProducts] = useState({});
-
-  const [loading, setLoading] = useState(true);
-
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const controller = new AbortController();
-    let ignore = false;
-
-    const fetchProducts = async () => {
-      try {
-        const results = await Promise.all(
-          categories.map(async (category) => {
-            try {
-              const res = await fetch(
-                `https://dummyjson.com/products/category/${encodeURIComponent(category)}`,
-                { signal: controller.signal },
-              );
-
-              if (!res.ok) {
-                throw new Error(`Failed to load ${category} (${res.status})`);
-              }
-
-              const data = await res.json();
-
-              return [
-                category,
-                Array.isArray(data.products) ? data.products : [],
-              ];
-            } catch (error) {
-              if (error.name === "AbortError") throw error;
-
-              console.error(`Could not load ${category}`, error);
-              return [category, []];
-            }
-          }),
-        );
-
-        if (ignore) return;
-
-        const productsData = Object.fromEntries(results);
-
-        setProducts(productsData);
-        setError(
-          results.every(([, items]) => items.length === 0)
-            ? "We couldn't load products right now. Please try again later."
-            : "",
-        );
-      } catch (error) {
-        if (!ignore && error.name !== "AbortError") {
-          console.error("Error Fetching", error);
-          setError("We couldn't load products right now. Please try again later.");
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
-      }
-    };
-
-    fetchProducts();
-
-    return () => {
-      ignore = true;
-      controller.abort();
-    };
-  }, []);
-
-  const availableCategories = categories.filter(
-    (category) => products[category]?.length > 0,
-  );
-
   return (
     <PageTransition>
-      <div>
-        <HeroSlider />
+      <div className="pb-16">
+        <h1 className="sr-only">MAGICIAN Online Store</h1>
 
-        {loading ? (
-          categories.map((category) => (
-            <SlideProductLoading key={category} />
-          ))
-        ) : error ? (
-          <div className="mx-auto w-[90%] max-w-337.5 py-12.5">
-            <ErrorState
-              title="Products unavailable"
-              description={error}
-            />
-          </div>
-        ) : (
-          availableCategories.map((category) => (
-            <SlideProduct
-              key={category}
-              data={products[category]}
-              title={category.replaceAll("-", " ")}
-            />
-          ))
-        )}
+        <HomeHero />
+        <CategoryShortcuts />
+        <ProductRail rail={homeRails.newArrivals} />
+        <DealStrip />
+        <ProductRail rail={homeRails.bestSellers} />
+        <PromoBanners />
+        <ProductRail rail={homeRails.topRated} />
+        <TrustStrip />
       </div>
     </PageTransition>
   );
