@@ -94,7 +94,6 @@ export const megaMenuPromo = {
 };
 
 export const pageLinks = [
-  { title: "Accessories", to: "/accessories" },
   { title: "Blog", to: "/blog" },
   { title: "About", to: "/about" },
   { title: "Contact", to: "/contact" },
@@ -105,7 +104,6 @@ export const mobileMenuLinks = [
   { title: "About", to: "/about" },
   { title: "Blog", to: "/blog" },
   { title: "Contact", to: "/contact" },
-  { title: "Accessories", to: "/accessories" },
 ];
 
 export const accountLinks = [
@@ -311,12 +309,10 @@ export const footerContent = {
     {
       id: "help",
       title: "Help",
-      // TODO: point these at dedicated pages when they exist. /contact is the
-      // only support page in the current route table.
       links: [
-        { title: "Shipping", to: "/contact" },
-        { title: "Returns", to: "/contact" },
-        { title: "FAQ", to: "/contact" },
+        { title: "Shipping", to: "/contact#shipping" },
+        { title: "Returns", to: "/contact#returns" },
+        { title: "FAQ", to: "/contact#faq" },
       ],
     },
   ],
@@ -476,4 +472,3 @@ export const homeTrustItems = [
     icon: "support",
   },
 ];
-

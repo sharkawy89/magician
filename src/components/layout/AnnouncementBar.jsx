@@ -85,7 +85,7 @@ function AnnouncementBar() {
           type="button"
           onClick={dismiss}
           aria-label="Dismiss announcement"
-          className="absolute end-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-pill text-white transition-colors hover:bg-white/10"
+          className="absolute inset-e-0 flex h-10 w-10 cursor-pointer items-center justify-center rounded-pill text-white transition-colors hover:bg-white/10"
         >
           <IoClose aria-hidden="true" className="text-[18px]" />
         </button>

@@ -9,6 +9,7 @@ import {
   groupCategories,
 } from "../../utils/categories";
 import { megaMenuPromo, pageLinks } from "../../mocks/storefrontMock";
+import { isActivePath } from "../../utils/nav";
 
 const DESKTOP_LINK =
   "relative flex h-12 shrink-0 items-center gap-1 border-b-[3px] px-2 text-sm font-medium text-ink-secondary transition-colors hover:text-ink";
@@ -156,7 +157,7 @@ function CategoryNav({ onOpenCategories }) {
           className="hidden shrink-0 items-center gap-1 lg:flex"
         >
           {pageLinks.map((item) => {
-            const active = activePath === item.to;
+            const active = isActivePath(activePath, item.to);
 
             return (
               <Link

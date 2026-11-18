@@ -16,7 +16,7 @@ function CountBadge({ count }) {
   const label = count > 99 ? "99+" : String(count);
 
   return (
-    <span aria-hidden="true" className="absolute -top-0.5 -end-1">
+    <span aria-hidden="true" className="absolute -top-0.5 inset-e-1">
       <Badge
         variant="ink"
         size="sm"
@@ -32,7 +32,7 @@ function Tooltip({ label }) {
   return (
     <span
       aria-hidden="true"
-      className="pointer-events-none absolute start-1/2 top-full z-dropdown mt-1 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-ink px-2 py-1 text-xs font-medium text-white shadow-panel lg:group-hover:block lg:group-focus-within:block"
+      className="pointer-events-none absolute inset-s-1/2 top-full z-dropdown mt-1 hidden -translate-x-1/2 whitespace-nowrap rounded-md bg-ink px-2 py-1 text-xs font-medium text-white shadow-panel lg:group-hover:block lg:group-focus-within:block"
     >
       {label}
     </span>

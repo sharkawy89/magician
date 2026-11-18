@@ -46,7 +46,7 @@ function Layout({ children }) {
     <div className="flex min-h-dvh flex-col">
       <a
         href="#main"
-        className="fixed start-3 top-3 z-modal -translate-y-[200%] rounded-lg bg-ink px-4 py-3 text-sm font-semibold text-white shadow-panel transition-transform focus:translate-y-0 motion-reduce:transition-none"
+        className="fixed inset-s-3 top-3 z-modal translate-y-[-200%] rounded-lg bg-ink px-4 py-3 text-sm font-semibold text-white shadow-panel transition-transform focus:translate-y-0 motion-reduce:transition-none"
       >
         Skip to content
       </a>

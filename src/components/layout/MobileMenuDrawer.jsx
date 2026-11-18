@@ -5,6 +5,7 @@ import Drawer from "../ui/Drawer";
 import Badge from "../ui/Badge";
 import { cn } from "../ui/cn";
 import { accountLinks, mobileMenuLinks } from "../../mocks/storefrontMock";
+import { isActivePath } from "../../utils/nav";
 
 const ITEM_CLASS =
   "flex min-h-12 items-center justify-between gap-3 border-b border-border text-sm font-medium text-ink-secondary";
@@ -19,7 +20,7 @@ function MobileMenuDrawer({ open, onClose }) {
       <nav aria-label="Mobile menu">
         <ul className="list-none">
           {mobileMenuLinks.map((item) => {
-            const active = location.pathname === item.to;
+            const active = isActivePath(location.pathname, item.to);
 
             return (
               <li key={item.to}>

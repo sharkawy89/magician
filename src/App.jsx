@@ -16,6 +16,10 @@ const Checkout = lazy(() => import("./page/checkout/Checkout"));
 const CategoryPage = lazy(() => import("./page/CategoryPage/CategoryPage"));
 const SearchResults = lazy(() => import("./page/SearchResults"));
 const Favorites = lazy(() => import("./page/favorites/Favorites"));
+const Blog = lazy(() => import("./page/blog/Blog"));
+const BlogPost = lazy(() => import("./page/blog/BlogPost"));
+const About = lazy(() => import("./page/about/About"));
+const Contact = lazy(() => import("./page/contact/Contact"));
 const StaticPage = lazy(() => import("./page/StaticPage"));
 const NotFound = lazy(() => import("./page/NotFound"));
 
@@ -51,39 +55,16 @@ function App() {
               <Route path="/favorites" element={<Favorites />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/category/:category" element={<CategoryPage />} />
-              <Route
-                path="/about"
-                element={
-                  <StaticPage
-                    title="About Us"
-                    description="Learn more about our store and what we do."
-                  />
-                }
-              />
+              <Route path="/about" element={<About />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/contact" element={<Contact />} />
               <Route
                 path="/accessories"
                 element={
                   <StaticPage
                     title="Accessories"
                     description="Explore the accessories we have available."
-                  />
-                }
-              />
-              <Route
-                path="/blog"
-                element={
-                  <StaticPage
-                    title="Blog"
-                    description="News, guides and stories from our store."
-                  />
-                }
-              />
-              <Route
-                path="/contact"
-                element={
-                  <StaticPage
-                    title="Contact"
-                    description="Get in touch with our team."
                   />
                 }
               />
