@@ -216,7 +216,7 @@ function ProductDetails() {
                       <li aria-hidden="true">/</li>
                     </>
                   ) : null}
-                  <li aria-current="page" className="min-w-0 truncate text-ink">
+                  <li aria-current="page" className="min-w-0 break-words text-ink">
                     {product.title}
                   </li>
                 </ol>

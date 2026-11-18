@@ -26,10 +26,10 @@ function CartLineItem({ item, isFavorite, onRemove, onSaveForLater }) {
   const isOutOfStock = hasStock && stockValue <= 0;
 
   return (
-    <li className="grid grid-cols-[5rem_minmax(0,1fr)] gap-x-3 gap-y-4 border-b border-border py-5 first:pt-0 last:border-b-0 last:pb-0 sm:grid-cols-[6rem_minmax(0,1fr)_8.5rem] sm:gap-x-5">
+    <li className="grid grid-cols-[5rem_minmax(0,1fr)] gap-x-3 gap-y-4 border-b border-border py-5 first:pt-0 last:border-b-0 last:pb-0 max-[12rem]:grid-cols-1 sm:grid-cols-[6rem_minmax(0,1fr)_8.5rem] sm:gap-x-5">
       <Link
         to={`/products/${item.id}`}
-        aria-label={`View ${item.title}`}
+        aria-label={image ? `View ${item.title}` : `View ${item.title} — No image`}
         className="group self-start"
       >
         <span className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-lg border border-border bg-surface-subtle sm:h-24 sm:w-24">
@@ -94,11 +94,10 @@ function CartLineItem({ item, isFavorite, onRemove, onSaveForLater }) {
           <button
             type="button"
             onClick={() => onSaveForLater(item)}
-            aria-label={cartContent.moveToFavoritesLabel.replace(
-              "{title}",
-              item.title,
-            )}
-            className="inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-sm px-1 text-sm font-semibold text-info underline-offset-4 hover:text-info-strong hover:underline"
+            aria-label={`${
+              isFavorite ? cartContent.savedForLater : cartContent.saveForLater
+            }: ${item.title}`}
+            className="inline-flex min-h-10 max-w-full cursor-pointer items-center gap-1.5 rounded-sm px-1 text-start text-sm font-semibold text-info underline-offset-4 hover:text-info-strong hover:underline"
           >
             <FaRegHeart aria-hidden="true" className="text-[15px]" />
             {isFavorite
@@ -114,7 +113,7 @@ function CartLineItem({ item, isFavorite, onRemove, onSaveForLater }) {
               "{title}",
               item.title,
             )}
-            className="inline-flex min-h-10 cursor-pointer items-center gap-1.5 rounded-sm px-1 text-sm font-semibold text-ink-secondary underline-offset-4 hover:text-danger hover:underline"
+            className="inline-flex min-h-10 max-w-full cursor-pointer items-center gap-1.5 rounded-sm px-1 text-start text-sm font-semibold text-ink-secondary underline-offset-4 hover:text-danger hover:underline"
           >
             <FiTrash2 aria-hidden="true" className="text-[16px]" />
             Remove

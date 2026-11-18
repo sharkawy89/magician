@@ -80,10 +80,12 @@ function DealStrip() {
     <section className="mt-12" aria-labelledby="home-deal-heading">
       <div className="mx-auto w-[90%] max-w-337.5">
         <div className="on-ink relative overflow-hidden rounded-xl bg-ink px-5 py-7 text-white sm:px-8 lg:flex lg:items-center lg:justify-between lg:gap-10">
-          <div
+          <span
             aria-hidden="true"
-            className="pointer-events-none absolute -end-16 -top-20 h-56 w-56 rounded-pill bg-brand/10"
-          />
+            className="pointer-events-none absolute inset-0 overflow-hidden [contain:paint]"
+          >
+            <span className="absolute -end-16 -top-20 h-56 w-56 rounded-pill bg-brand/10" />
+          </span>
 
           <div className="relative max-w-xl">
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand">
@@ -108,6 +110,7 @@ function DealStrip() {
                 to={homeDeal.ctaTo}
                 variant="primary"
                 size="md"
+                className="min-w-0 max-w-full whitespace-normal"
                 rightIcon={<FiArrowRight aria-hidden="true" />}
               >
                 {homeDeal.ctaLabel}
@@ -123,7 +126,7 @@ function DealStrip() {
               role="timer"
               aria-live="off"
               aria-label={`Deal ends in ${remaining.days} days, ${remaining.hours} hours and ${remaining.minutes} minutes`}
-              className="mt-2 flex gap-2"
+              className="mt-2 flex flex-wrap gap-2"
             >
               {units.map((unit) => (
                 <CountdownBox

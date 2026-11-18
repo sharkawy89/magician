@@ -7,7 +7,7 @@ export const LISTING_SORTS = [
   { value: "rating-desc", label: "Top rated" },
 ];
 
-export const RATING_THRESHOLDS = [4, 3, 2];
+const RATING_THRESHOLDS = [4, 3, 2];
 
 const SORT_VALUES = new Set(LISTING_SORTS.map((sort) => sort.value));
 const VIEW_VALUES = new Set(["grid", "list"]);
@@ -36,7 +36,7 @@ const SORT_PARAMS = {
   "rating-desc": { sortBy: "rating", order: "desc" },
 };
 
-export const LISTING_FILTER_KEYS = [
+const LISTING_FILTER_KEYS = [
   "minPrice",
   "maxPrice",
   "rating",

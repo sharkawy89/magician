@@ -234,9 +234,9 @@ function CategoryNav({ onOpenCategories }) {
           <div className="grid grid-cols-2 gap-x-6 gap-y-7 md:grid-cols-3 lg:grid-cols-6">
             {groups.map((group) => (
               <div key={group.id}>
-                <h3 className="mb-2 text-[11px] font-bold uppercase tracking-wide text-muted">
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-wide text-muted">
                   {group.title}
-                </h3>
+                </p>
                 <ul className="list-none space-y-0.5">
                   {group.items.map((category) => {
                     const active =

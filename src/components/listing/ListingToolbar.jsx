@@ -64,7 +64,7 @@ function ListingToolbar({
           value={sort}
           onChange={(event) => onSortChange(event.target.value)}
           options={LISTING_SORTS}
-          className="w-full min-w-52 sm:w-56"
+          className="w-full min-w-0 sm:w-56"
         />
 
         <div

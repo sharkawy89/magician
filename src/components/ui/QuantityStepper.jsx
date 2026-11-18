@@ -47,7 +47,7 @@ function QuantityStepper({
   return (
     <div
       className={cn(
-        "inline-flex items-center overflow-hidden rounded-lg border border-border-strong bg-surface",
+        "inline-flex items-center rounded-lg border border-border-strong bg-surface",
         sizeClasses.container,
         className,
       )}
@@ -55,7 +55,7 @@ function QuantityStepper({
       <button
         type="button"
         className={cn(
-          "flex shrink-0 cursor-pointer items-center justify-center text-ink transition-colors duration-150 hover:bg-surface-subtle disabled:cursor-not-allowed disabled:text-muted",
+          "flex shrink-0 cursor-pointer items-center justify-center text-ink transition-colors duration-150 first:rounded-s-lg last:rounded-e-lg hover:bg-surface-subtle disabled:cursor-not-allowed disabled:text-muted",
           sizeClasses.button,
         )}
         onClick={() => step(numeric - 1)}
@@ -81,7 +81,7 @@ function QuantityStepper({
       <button
         type="button"
         className={cn(
-          "flex shrink-0 cursor-pointer items-center justify-center text-ink transition-colors duration-150 hover:bg-surface-subtle disabled:cursor-not-allowed disabled:text-muted",
+          "flex shrink-0 cursor-pointer items-center justify-center text-ink transition-colors duration-150 first:rounded-s-lg last:rounded-e-lg hover:bg-surface-subtle disabled:cursor-not-allowed disabled:text-muted",
           sizeClasses.button,
         )}
         onClick={() => step(numeric + 1)}

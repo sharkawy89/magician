@@ -2,7 +2,7 @@ import { lazy, Suspense } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./page/home/Home";
 import { Toaster } from "react-hot-toast";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, LazyMotion } from "framer-motion";
 import Layout from "./components/layout/Layout";
 import RouteFallback from "./components/ui/RouteFallback";
 
@@ -26,12 +26,19 @@ const UiKitPage = import.meta.env.DEV
   ? lazy(() => import("./page/UiKit"))
   : null;
 
+// Feature bundle loads after first paint; m + domAnimation keeps the same
+// enter/exit/opacity/transform and reduced-motion behaviour without layout
+// projection or drag code in the main chunk.
+const loadFeatures = () =>
+  import("./components/motion/features").then((module) => module.default);
+
 function App() {
   const location = useLocation();
 
   return (
-    <>
-      <Layout>
+    <LazyMotion features={loadFeatures} strict>
+      <>
+        <Layout>
         <Suspense fallback={<RouteFallback />}>
           <AnimatePresence mode="wait">
             {/* Key by path only: listing filters live in search params and must
@@ -142,7 +149,8 @@ function App() {
           },
         }}
       />
-    </>
+      </>
+    </LazyMotion>
   );
 }
 

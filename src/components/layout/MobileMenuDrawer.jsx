@@ -58,9 +58,9 @@ function MobileMenuDrawer({ open, onClose }) {
       </nav>
 
       <div className="mt-6">
-        <h3 className="mb-1 text-[11px] font-bold uppercase tracking-wide text-muted">
+        <p className="mb-1 text-[11px] font-bold uppercase tracking-wide text-muted">
           Account
-        </h3>
+        </p>
         <ul className="list-none">
           {accountLinks.map((item) => {
             const active = location.pathname === item.to;

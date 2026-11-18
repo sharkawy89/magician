@@ -65,10 +65,12 @@ function Layout({ children }) {
 
       <Footer />
 
-      <MobileTabBar
-        onOpenCategories={openCategories}
-        onFocusSearch={focusSearch}
-      />
+      {location.pathname !== "/checkout" && (
+        <MobileTabBar
+          onOpenCategories={openCategories}
+          onFocusSearch={focusSearch}
+        />
+      )}
 
       <MobileMenuDrawer
         open={menuOpen}

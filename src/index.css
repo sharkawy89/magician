@@ -26,7 +26,6 @@
   --color-skeleton: #e2e5e7;
   --color-skeleton-shine: rgb(255 255 255 / 0.55);
   --color-white70: #bababa;
-  --color-white80: #d1d1d1;
 
   /* Typography */
   --font-sans:
@@ -56,7 +55,6 @@
   --text-h6--line-height: 1.4;
 
   /* Shape */
-  --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
   --radius-md: 0.625rem;
   --radius-lg: 0.75rem;
@@ -86,7 +84,6 @@
   /* Z-index layers */
   --z-dropdown: 40;
   --z-header: 100;
-  --z-overlay: 200;
   --z-modal: 300;
   --z-toast: 400;
 }
@@ -246,10 +243,6 @@
 
 @utility z-header {
   z-index: var(--z-header);
-}
-
-@utility z-overlay {
-  z-index: var(--z-overlay);
 }
 
 @utility z-modal {

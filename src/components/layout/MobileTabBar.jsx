@@ -65,7 +65,7 @@ function MobileTabBar({ onOpenCategories, onFocusSearch }) {
   return (
     <nav
       aria-label="Primary"
-      className="fixed inset-x-0 bottom-0 z-header bg-surface pb-[env(safe-area-inset-bottom)] shadow-tabbar md:hidden"
+      className="fixed inset-x-0 bottom-0 z-header overflow-x-auto bg-surface pb-[env(safe-area-inset-bottom)] shadow-tabbar md:hidden"
     >
       <ul className="mx-auto grid h-14 max-w-lg list-none grid-cols-5">
         <li>

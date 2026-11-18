@@ -61,7 +61,7 @@ function ReviewForm() {
     <div className="mt-6 rounded-xl border border-border bg-surface-subtle p-4 sm:p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h3 className="text-h5 font-bold text-ink">Write a review</h3>
+          <h2 className="text-h5 font-bold text-ink">Write a review</h2>
           <p className="mt-1 text-caption text-ink-secondary">
             Demo only — reviews are not submitted or saved.
           </p>
@@ -268,9 +268,9 @@ function ProductReviews({ product }) {
 
           <div className="min-w-0">
             <div className="flex flex-wrap items-end justify-between gap-3">
-              <h3 className="text-h5 font-bold text-ink">
+              <h2 className="text-h5 font-bold text-ink">
                 Customer reviews
-              </h3>
+              </h2>
 
               <Select
                 label="Sort reviews"

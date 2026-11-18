@@ -66,9 +66,9 @@ function PriceRangeFilter({ idPrefix, bounds, values, onChange }) {
   return (
     <div role="group" aria-labelledby={`${idPrefix}-price-heading`}>
       <div className="flex items-baseline justify-between gap-2">
-        <h3 id={`${idPrefix}-price-heading`} className="text-h6 font-bold text-ink">
+        <h2 id={`${idPrefix}-price-heading`} className="text-h6 font-bold text-ink">
           Price
-        </h3>
+        </h2>
         <p className="text-caption text-ink-secondary">
           {formatMoney(effectiveMin)} – {formatMoney(effectiveMax)}
         </p>
@@ -220,12 +220,12 @@ function ListingFilters({
         aria-labelledby={`${prefix}-rating-heading`}
         className="border-t border-border pt-5"
       >
-        <h3
+        <h2
           id={`${prefix}-rating-heading`}
           className="text-h6 font-bold text-ink"
         >
           Rating
-        </h3>
+        </h2>
 
         <div className="mt-2 flex flex-col">
           <Radio
@@ -268,12 +268,12 @@ function ListingFilters({
         aria-labelledby={`${prefix}-brand-heading`}
         className="border-t border-border pt-5"
       >
-        <h3
+        <h2
           id={`${prefix}-brand-heading`}
           className="text-h6 font-bold text-ink"
         >
           Brand
-        </h3>
+        </h2>
 
         <div className="mt-2 flex flex-col">
           {brandFacets.length === 0 ? (
@@ -316,12 +316,12 @@ function ListingFilters({
         aria-labelledby={`${prefix}-availability-heading`}
         className="border-t border-border pt-5"
       >
-        <h3
+        <h2
           id={`${prefix}-availability-heading`}
           className="text-h6 font-bold text-ink"
         >
           Availability
-        </h3>
+        </h2>
 
         <div className="mt-2">
           <Checkbox

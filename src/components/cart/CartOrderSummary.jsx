@@ -56,14 +56,14 @@ function CartOrderSummary({
         <FreeShippingProgress subtotal={subtotal} className="mt-4" />
 
         <dl className="mt-4 space-y-3 border-t border-border pt-4 text-sm">
-          <div className="flex items-baseline justify-between gap-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <dt className="text-ink-secondary">Subtotal</dt>
             <dd className="font-semibold tabular-nums text-ink">
               {formatMoney(subtotal)}
             </dd>
           </div>
 
-          <div className="flex items-baseline justify-between gap-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <dt className="text-ink-secondary">{cartContent.shippingLabel}</dt>
             <dd
               className={
@@ -79,7 +79,7 @@ function CartOrderSummary({
           </div>
 
           {discount > 0 ? (
-            <div className="flex items-baseline justify-between gap-3">
+            <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
               <dt className="font-semibold text-success">
                 Promo ({promo.appliedCode})
               </dt>
@@ -89,21 +89,21 @@ function CartOrderSummary({
             </div>
           ) : null}
 
-          <div className="flex items-baseline justify-between gap-3">
+          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
             <dt className="text-ink-secondary">{cartContent.taxLabel}</dt>
-            <dd className="text-end text-xs text-ink-secondary">
+            <dd className="min-w-0 break-words text-end text-xs text-ink-secondary">
               {cartContent.taxValue}
             </dd>
           </div>
         </dl>
 
-        <div className="mt-4 flex items-baseline justify-between gap-3 border-t border-border pt-4">
-          <span className="text-base font-bold text-ink">
+        <div className="mt-4 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-t border-border pt-4">
+          <span className="min-w-0 break-words text-base font-bold text-ink">
             {cartContent.totalLabel}
           </span>
           <span
             aria-live="polite"
-            className="text-h4 font-bold tabular-nums text-ink"
+            className="min-w-0 break-words text-h4 font-bold tabular-nums text-ink"
           >
             {formatMoney(total)}
           </span>

@@ -24,7 +24,7 @@ function DescriptionPanel({ product }) {
         {product.description}
       </p>
 
-      <h3 className="mt-6 text-h5 font-bold text-ink">Highlights</h3>
+      <h2 className="mt-6 text-h5 font-bold text-ink">Highlights</h2>
       <ul className="mt-3 grid list-none gap-2 sm:grid-cols-2">
         {SAMPLE_HIGHLIGHTS.map((highlight) => (
           <li key={highlight} className="flex items-start gap-2 text-sm text-ink">

@@ -127,7 +127,6 @@ export const cartContent = {
   removeLabel: "Remove {title} from cart",
   saveForLater: "Save for later",
   savedForLater: "Saved for later",
-  moveToFavoritesLabel: "Move {title} to favorites",
   lowStock: "Only {count} left",
   outOfStock: "Out of stock — remove or save it for later.",
   summaryTitle: "Order summary",
@@ -176,6 +175,85 @@ export const cartContent = {
       description: "Changed your mind? Send it back within 30 days.",
     },
   ],
+};
+
+export const deliveryMethods = [
+  {
+    id: "standard",
+    label: "Standard",
+    description: "5–7 business days",
+    price: flatShippingRate,
+    freeOverThreshold: true,
+  },
+  {
+    id: "express",
+    label: "Express",
+    description: "2–3 business days",
+    price: 14.95,
+    freeOverThreshold: false,
+  },
+  {
+    id: "nextday",
+    label: "Next-day",
+    description: "1 business day",
+    price: 24.95,
+    freeOverThreshold: false,
+  },
+];
+
+export const checkoutContent = {
+  steps: [
+    { id: "shipping", label: "Shipping" },
+    { id: "delivery", label: "Delivery" },
+    { id: "payment", label: "Payment" },
+    { id: "review", label: "Review" },
+  ],
+  demoNote: "Demo checkout — no real payment is processed and no card data is stored.",
+  emptyCart: {
+    title: "Your cart is empty",
+    description: "Add something you love before checking out.",
+    cta: "Continue shopping",
+  },
+  form: {
+    email: { label: "Email", placeholder: "you@example.com" },
+    fullName: { label: "Full name", placeholder: "Jane Doe" },
+    phone: { label: "Phone (optional)", placeholder: "+1 (555) 000-0000" },
+    address1: { label: "Address line 1", placeholder: "123 Main Street" },
+    address2: { label: "Address line 2 (optional)", placeholder: "Apartment, suite, etc." },
+    city: { label: "City", placeholder: "Springfield" },
+    state: { label: "State / region", placeholder: "State" },
+    postalCode: { label: "Postal code", placeholder: "12345" },
+    country: { label: "Country", placeholder: "Select country" },
+  },
+  countries: ["United States", "Canada", "United Kingdom", "Australia"],
+  billing: {
+    sameAsShipping: "Same as shipping address",
+    heading: "Billing address",
+  },
+  payment: {
+    card: "Card",
+    cash: "Cash on delivery",
+    paypal: "PayPal (stub)",
+    cardNumber: { label: "Card number", placeholder: "1234 5678 9012 3456" },
+    cardName: { label: "Name on card", placeholder: "Jane Doe" },
+    cardExpiry: { label: "Expiry", placeholder: "MM/YY" },
+    cardCvc: { label: "CVC", placeholder: "123" },
+  },
+  review: {
+    taxValue: "Calculated at checkout",
+    terms: "I agree to the terms and conditions",
+    placeOrder: "Place order",
+    placing: "Placing order…",
+  },
+  success: {
+    heading: "Order placed",
+    orderNumber: "Order #",
+    itemsLabel: "Items",
+    totalLabel: "Total",
+    estimatedDelivery: "Estimated delivery",
+    emailNote: "A confirmation email has been sent to {email}.",
+    continueShopping: "Continue shopping",
+  },
 };
 
 export const miniCartEmpty = {

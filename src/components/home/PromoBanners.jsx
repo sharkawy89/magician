@@ -35,7 +35,7 @@ function PromoBanners() {
                 <Icon
                   aria-hidden="true"
                   className={cn(
-                    "pointer-events-none absolute -bottom-6 -end-4 text-[120px]",
+                    "pointer-events-none absolute bottom-0 end-0 text-[96px]",
                     isInk ? "text-white/10" : "text-ink/10",
                   )}
                 />
@@ -50,7 +50,7 @@ function PromoBanners() {
                 </p>
                 <h3
                   className={cn(
-                    "relative mt-2 max-w-xs text-h3 font-bold",
+                    "relative mt-2 max-w-xs break-words text-h3 font-bold max-[12rem]:text-h4",
                     isInk ? "text-white" : "text-ink",
                   )}
                 >
@@ -69,7 +69,7 @@ function PromoBanners() {
                   as={Link}
                   to={promo.ctaTo}
                   variant={isInk ? "primary" : "secondary"}
-                  className="relative mt-6"
+                  className="relative mt-6 max-w-full whitespace-normal"
                 >
                   {promo.ctaLabel}
                 </Button>

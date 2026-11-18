@@ -75,7 +75,7 @@ function Button({
       {loading ? (
         <span
           aria-hidden="true"
-          className="h-4 w-4 animate-spin rounded-full border-2 border-current border-e-transparent"
+          className="h-4 w-4 animate-spin rounded-full border-2 border-current border-e-transparent motion-reduce:animate-none"
         />
       ) : (
         leftIcon

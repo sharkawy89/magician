@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion as Motion, useReducedMotion } from 'framer-motion'
+import { m as Motion, useReducedMotion } from 'framer-motion'
 
 function PageTransition({children}) {
   const reduceMotion = useReducedMotion()

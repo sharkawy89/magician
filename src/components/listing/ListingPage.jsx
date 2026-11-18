@@ -403,7 +403,7 @@ function ListingPage({ query = "", category = "" }) {
       <div className="pb-16">
         <div className="mx-auto w-[90%] max-w-337.5">
           <header className="border-b border-border pt-6 pb-5">
-            <h1 className="text-h3 font-bold text-ink sm:text-h2">{title}</h1>
+            <h1 className="text-h4 font-bold text-ink sm:text-h2">{title}</h1>
 
             {scopedNote ? (
               <p className="mt-2 text-sm text-ink-secondary">

@@ -42,6 +42,26 @@ export function normalizeCategories(data) {
   return categories;
 }
 
+/**
+ * Offline/failure fallback built from the same department slugs the API is
+ * expected to return. Keeping it in the shared utility means the drawer, mega
+ * menu and search scope all degrade to one consistent list.
+ */
+export function getFallbackCategories() {
+  const seen = new Set();
+  const categories = [];
+
+  for (const department of categoryDepartments) {
+    for (const slug of department.slugs) {
+      if (seen.has(slug)) continue;
+      seen.add(slug);
+      categories.push({ slug, name: formatCategoryName(slug) });
+    }
+  }
+
+  return categories;
+}
+
 export function getFeaturedCategories(categories) {
   const bySlug = new Map(categories.map((category) => [category.slug, category]));
 

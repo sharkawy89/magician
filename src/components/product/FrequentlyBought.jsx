@@ -13,7 +13,7 @@ const API_ROOT = "https://dummyjson.com/products";
 export function BundleSkeleton() {
   return (
     <div aria-hidden="true" className="rounded-xl border border-border bg-surface p-5 shadow-card">
-      <Skeleton rounded="rounded-sm" className="h-6 w-56" />
+      <Skeleton rounded="rounded-sm" className="h-6 w-full max-w-56" />
       <SkeletonText lines={1} className="mt-2 max-w-md" />
       <div className="mt-5 flex flex-col gap-4">
         {Array.from({ length: 3 }, (_, index) => (
@@ -22,7 +22,7 @@ export function BundleSkeleton() {
             <Skeleton rounded="rounded-lg" className="h-12 w-12" />
             <div className="min-w-0 flex-1">
               <Skeleton rounded="rounded-sm" className="h-3.5 w-2/3" />
-              <Skeleton rounded="rounded-sm" className="mt-2 h-3 w-16" />
+              <Skeleton rounded="rounded-sm" className="mt-2 h-3 w-full max-w-16" />
             </div>
           </div>
         ))}

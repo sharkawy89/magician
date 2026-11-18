@@ -83,12 +83,12 @@ function Header({ onOpenMenu, onOpenCategories, searchFocusSignal }) {
 
               <Link
                 to="/"
-                aria-label="MAGICIAN Online Store home"
                 className="flex shrink-0 items-center text-ink"
               >
                 <Logo variant="icon" className="sm:hidden" />
                 <Logo variant="compact" className="hidden sm:block lg:hidden" />
                 <Logo variant="full" className="hidden lg:block" />
+                <span className="sr-only"> home</span>
               </Link>
             </div>
 

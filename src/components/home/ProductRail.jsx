@@ -4,27 +4,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import Product from "../slideProducts/Product";
 import ErrorState from "../ui/ErrorState";
-import { Skeleton, SkeletonText } from "../ui/Skeleton";
+import { RailSkeleton } from "./RailSkeleton";
+
+export { RailSkeleton } from "./RailSkeleton";
 
 const RAIL_BUTTON =
   "hidden h-10 w-10 items-center justify-center rounded-pill border border-border-strong bg-surface text-ink transition-colors duration-200 hover:border-ink hover:bg-surface-subtle motion-reduce:transition-none sm:inline-flex [@media(hover:none)]:hidden";
-
-export function RailSkeleton() {
-  return (
-    <div aria-hidden="true" className="flex gap-4 overflow-hidden">
-      {Array.from({ length: 5 }, (_, index) => (
-        <div
-          key={index}
-          className="w-62.5 shrink-0 rounded-xl border border-border bg-surface p-4"
-        >
-          <Skeleton rounded="rounded-lg" className="h-40 w-full" />
-          <SkeletonText lines={2} className="mt-4" />
-          <Skeleton className="mt-4 h-6 w-24" />
-        </div>
-      ))}
-    </div>
-  );
-}
 
 function ProductRail({ rail, excludeId = null, excludeIds = [] }) {
   const swiperRef = useRef(null);

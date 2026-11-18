@@ -1,6 +1,6 @@
 import { useId, useRef } from "react";
 import { createPortal } from "react-dom";
-import { AnimatePresence, motion as Motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, m as Motion, useReducedMotion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import Button from "./Button";
 import { cn } from "./cn";

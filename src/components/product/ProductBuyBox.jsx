@@ -144,6 +144,7 @@ function ProductBuyBox({ product }) {
         <Button
           type="button"
           onClick={() => add(quantity)}
+          className="w-full sm:w-auto"
           disabled={outOfStock}
           variant={isInCart ? "outline" : "primary"}
           size="lg"
@@ -205,17 +206,17 @@ function ProductBuyBox({ product }) {
           const Icon = POLICY_ICONS[policy.id];
 
           return (
-            <div key={policy.id} className="flex items-start gap-3">
-              {Icon ? (
-                <Icon
-                  aria-hidden="true"
-                  className="mt-0.5 shrink-0 text-[18px] text-ink-secondary"
-                />
-              ) : null}
-              <div>
-                <dt className="font-semibold text-ink">{policy.label}</dt>
-                <dd className="text-ink-secondary">{policy.value}</dd>
-              </div>
+            <div key={policy.id}>
+              <dt className="flex items-start gap-3 font-semibold text-ink">
+                {Icon ? (
+                  <Icon
+                    aria-hidden="true"
+                    className="mt-0.5 shrink-0 text-[18px] text-ink-secondary"
+                  />
+                ) : null}
+                <span>{policy.label}</span>
+              </dt>
+              <dd className="ps-[30px] text-ink-secondary">{policy.value}</dd>
             </div>
           );
         })}

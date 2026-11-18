@@ -111,13 +111,13 @@ function Footer() {
         </div>
 
         <div className="grid gap-8 py-10 md:grid-cols-2 lg:grid-cols-[1.4fr_repeat(3,1fr)]">
-          <div className="md:col-span-2 lg:col-span-1">
+          <div className="min-w-0 md:col-span-2 lg:col-span-1">
             <Link
               to="/"
-              aria-label="MAGICIAN Online Store home"
-              className="inline-flex text-white"
+              className="inline-flex max-w-full text-white"
             >
-              <Logo variant="full" className="text-white" />
+              <Logo variant="full" className="max-w-full text-white" />
+              <span className="sr-only"> home</span>
             </Link>
 
             <p className="mt-4 max-w-sm text-sm text-white/80">
@@ -126,7 +126,7 @@ function Footer() {
 
             <ul
               aria-label={footerContent.socialLabel}
-              className="mt-4 flex list-none items-center gap-1"
+              className="mt-4 flex list-none flex-wrap items-center gap-1"
             >
               {footerContent.socialLinks.map((social) => {
                 const Icon = SOCIAL_ICONS[social.id];

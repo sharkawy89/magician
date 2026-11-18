@@ -21,7 +21,7 @@ function TrustStrip() {
           Why shop with MAGICIAN
         </h2>
 
-        <ul className="grid list-none grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-4">
+        <ul className="grid list-none grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border max-[12rem]:grid-cols-1 md:grid-cols-4">
           {homeTrustItems.map((item) => {
             const Icon = ICONS[item.icon] ?? FiShield;
 
@@ -34,7 +34,7 @@ function TrustStrip() {
                   <Icon aria-hidden="true" className="text-[18px]" />
                 </span>
                 <p className="text-sm font-bold text-ink">{item.title}</p>
-                <p className="text-xs leading-relaxed text-ink-secondary">
+                <p className="break-words text-xs leading-relaxed text-ink-secondary">
                   {item.description}
                 </p>
               </li>

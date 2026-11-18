@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { createPortal } from "react-dom";
 import {
   AnimatePresence,
-  motion as Motion,
+  m as Motion,
   useReducedMotion,
 } from "framer-motion";
 import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
